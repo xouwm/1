@@ -1,58 +1,66 @@
 #include <iostream>
-#include "Square.h"
+#include "square.h"
+
 using namespace std;
-Square::Square(double upper_left_corner_x, double upper_left_corner_y, double length)
-{
-	this->upper_left_corner_x = upper_left_corner_x;
-	this->upper_left_corner_y = upper_left_corner_y;
-	set_length(length);
-}
-Square::Square(double side)
-{
-	set_length(side);
-	upper_left_corner_x = 0;
-	upper_left_corner_y = side;
-}
-void Square::set_length(double length)
+
+void Square::set_length(double x1, double y1, double length)
 {
 	if (length > 0)
 	{
+		this->x1 = x1;
+		this->y1 = y1;
 		this->length = length;
 	}
 	else
 	{
-		throw invalid_argument("ƒлина должна быть больше нул¤");
+		throw invalid_argument("ƒлина меньше 0 или равна ему");
 	}
 }
-void Square::set_upper_left_corner_x(double x)
+
+Square::Square(double x1, double y1, double length)
 {
-	upper_left_corner_x = x;
+	set_length(x1, y1, length);
 }
-void Square::set_upper_left_corner_y(double y)
+
+
+	
+double Square::get_vortex_x1() { return x1; }
+double Square::get_vortex_x2() { return x1 + length; }
+double Square::get_vortex_x3() { return x1 + length; }
+double Square::get_vortex_x4() { return x1; }
+
+double Square::get_vortex_y1() { return y1; }
+double Square::get_vortex_y2() { return y1; }
+double Square::get_vortex_y3() { return y1 - length; }
+double Square::get_vortex_y4() { return y1 - length; }
+
+double Square::get_changed_coordinates_x1(double change_of_coordinate) { return x1 + change_of_coordinate; }
+double Square::get_changed_coordinates_x2(double change_of_coordinate) { return x1 + change_of_coordinate + length; }
+double Square::get_changed_coordinates_x3(double change_of_coordinate) { return x1 + change_of_coordinate + length; }
+double Square::get_changed_coordinates_x4(double change_of_coordinate) { return x1 + change_of_coordinate; }
+
+double Square::get_changed_coordinates_y1(double change_of_coordinate) { return y1 + change_of_coordinate; }
+double Square::get_changed_coordinates_y2(double change_of_coordinate) { return y1 + change_of_coordinate; }
+double Square::get_changed_coordinates_y3(double change_of_coordinate) { return y1 + change_of_coordinate - length; }
+double Square::get_changed_coordinates_y4(double change_of_coordinate) { return y1 + change_of_coordinate - length; }
+
+double Square::get_perimeter() { return length * 4; }
+
+double Square::get_square() { return length * length; }
+
+double Square::get_rotated_x1(){ return x1 + length; }
+double Square::get_rotated_x2() { return x1 + length; }
+double Square::get_rotated_x3() { return x1; }
+double Square::get_rotated_x4() { return x1; }
+
+double Square::get_rotated_y1() { return y1 - length; }
+double Square::get_rotated_y2() { return y1 - length; }
+double Square::get_rotated_y3() { return y1; }
+double Square::get_rotated_y4() { return y1; }
+
+std::ostream& operator<<(std::ostream& out, Square& F)
 {
-	upper_left_corner_y = y;
-}
-void Square::set_new_length(double length)
-{
-	set_length(length);
-}
-double Square::get_perimeter()
-{
-	return length * 4;
-}
-double Square::get_area()
-{
-	return length * length;
-}
-ostream& operator<<(ostream& out, const Square& sq) 
-{ 
-	out << "x1 = " << sq.upper_left_corner_x << endl
-	<< "y1 = " << sq.upper_left_corner_y << endl
-	<< "x2 = " << sq.upper_left_corner_x + sq.length << endl
-	<< "y2 = " << sq.upper_left_corner_y << endl
-	<< "x3 = " << sq.upper_left_corner_x + sq.length << endl
-	<< "y3 = " << sq.upper_left_corner_y - sq.length << endl
-	<< "x4 = " << sq.upper_left_corner_x << endl
-	<< "y4 = " << sq.upper_left_corner_y - sq.length << endl << endl;
-	return out;
+	return out << F.get_vortex_x1() << " | " << F.get_vortex_x2() << " | " << F.get_vortex_x3() << " | " << F.get_vortex_x4();
+	return out << F.get_vortex_y1() << " | " << F.get_vortex_y2() << " | " << F.get_vortex_y3() << " | " << F.get_vortex_y4();
+
 }
