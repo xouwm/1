@@ -1,24 +1,36 @@
 #include <iostream>
-#include <string>
-#include "Date.h"
-#include "Triad.h"
-using namespace std;
+#include "Triangle.h"
 
-int main() 
+int main()
 {
-	setlocale(LC_ALL, "Russian");
+	std::cout << get_perimetr(1, 2, 3) << std::endl;
 
-
-	int a, b, c;
-	a = 1;
-	b = 2;
-	c = 3;
-	Triad one(a, b, c);
-	cout << "день = " << one.get_a() << endl << "мес¤ц = " << one.get_b() << endl << "год = " << one.get_c() << endl;
-
-
-	Date two(a, b, c);
-	cout << "день = " << two.get_day() << endl << "мес¤ц = " << two.get_month() << endl << "год = " << two.get_year() << endl;
-
-
+	try 
+	{
+		std::cout << get_perimetr_2(0, 0, 0)<<std::endl;
+		std::cout << get_perimetr_3(0, 0, 0)<<std::endl;
+		std::cout << get_perimetr_4(0, 0, 0)<<std::endl;
+		std::cout << get_perimetr_5(0, 0, 0)<<std::endl;
+		std::cout << get_perimetr_6(0, 0, 0)<<std::endl;
+	}
+	catch (int)
+	{
+		std::cerr << "Error! One side or more is equal to 0 or less than 0! (specifier twrow)";
+	}
+	catch (invalid_argument error)
+	{
+		std::cerr << error.what() << std::endl;
+	}
+	catch (empty_class)
+	{
+		std::cerr << "Error!One side or more is equal to 0 or less than 0! (Empty class)" << std::endl;
+	}
+	catch (independent_class error) 
+	{
+		std::cerr << error.message << std::endl;
+	}
+	catch (successor_class error) 
+	{
+		std::cerr << error.what() << std::endl;
+	}
 }
