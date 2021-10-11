@@ -4,7 +4,7 @@ using namespace std;
 
 int main()
 {
-	double x1, y1, length, length_change, change_of_coordinate;
+	double x1, y1, length, length_change;
 	setlocale(LC_ALL, "ru");
 	cout << "введите кординату x для левого верхнего угла квадрата" << endl;
 	cin >> x1;
@@ -12,8 +12,6 @@ int main()
 	cin >> y1;
 	cout << "введите длинну" << endl;
 	cin >> length;
-	cout << "введите изменение координат" << endl;
-	cin >> change_of_coordinate;
 	cout << endl;
 
 	Square a(x1, y1, length);
@@ -23,12 +21,19 @@ int main()
 	cout << "координаты точки x3, y3:" << " (" << a.get_vortex_x3() << " ; " << a.get_vortex_y3() << ") " << endl;
 	cout << "координаты точки x4, y4:" << " (" << a.get_vortex_x4() << " ; " << a.get_vortex_y4() << ") " << endl << endl << endl;
 
-	cout << "изменение (перемещение) координат = " << change_of_coordinate << endl << endl;
+	// Пример изменения координаты
+	double new_x2, new_y2;
 
-	cout << "координаты точки x1, y1 с изменением координат: " << " (" << a.get_changed_coordinates_x1(change_of_coordinate) << " ; " << a.get_changed_coordinates_y1(change_of_coordinate) << ") " << endl;
-	cout << "координаты точки x2, y2 с изменением координат: " << " (" << a.get_changed_coordinates_x2(change_of_coordinate) << " ; " << a.get_changed_coordinates_y2(change_of_coordinate) << ") " << endl;
-	cout << "координаты точки x3, y3 с изменением координат: " << " (" << a.get_changed_coordinates_x3(change_of_coordinate) << " ; " << a.get_changed_coordinates_y3(change_of_coordinate) << ") " << endl;
-	cout << "координаты точки x4, y4 с изменением координат: " << " (" << a.get_changed_coordinates_x4(change_of_coordinate) << " ; " << a.get_changed_coordinates_y4(change_of_coordinate) << ") " << endl << endl;
+	cout << "введите новое значение для x2: " << endl;
+	cin >> new_x2;
+	a.change_x2(new_x2);
+
+	cout << "введите новое значение для y2: " << endl;
+	cin >> new_y2;
+	a.change_y2(new_y2);
+
+	cout << "координаты x1, y1 после изменения x2, y2:" << " (" << a.get_vortex_x1() << " ; " << a.get_vortex_y1() << ") " << endl;
+
 
 	cout << "поворот вершин квадрата производится на 90 градусов: " << endl << endl;
 
