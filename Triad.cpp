@@ -7,19 +7,89 @@ Triad::Triad()
 	c = 0;
 }
 
-Triad::Triad(int a, int b, int c)
+Triad::Triad(const int a, const int b, const int c)
 {
-	this->a = a;
-	this->b = b;
-	this->c = c;
+	set_a(a);
+	set_b(b);
+	set_c(c);
 }
+
+void Triad::set_a(const int a) { this->a = a; }
+
+void Triad::set_b(const int b) { this->b = b; }
+
+void Triad::set_c(const int c) { this->c = c; }
 
 int Triad::get_a() { return a; }
 int Triad::get_b() { return b; }
 int Triad::get_c() { return c; }
 
-int Triad::get_composition() { return a * b * c; }
+bool Triad::are_equal(const Triad& other)
+{
+    if (a == other.a)
+    {
+        if (b == other.b)
+        {
 
-int Triad::set_change_of_a(int changed_a) { return changed_a; }
-int Triad::set_change_of_b(int changed_b) { return changed_b; }
-int Triad::set_change_of_c(int changed_c) { return changed_c; }
+            if (c == other.c)
+            {
+                return true;
+            }
+        }
+    }
+    else
+    {
+        return false;
+    }
+}
+
+bool Triad::is_greater(const Triad& other)
+{
+    if (a > other.a)
+    {
+        return true;
+    }
+    else if (a == other.a)
+    {
+        if (b > other.b)
+        {
+            return true;
+        }
+        if (b == other.b)
+        {
+            if (c > other.c)
+            {
+                return true;
+            }
+        }
+    }
+    else
+    {
+        return false;
+    }
+}
+
+bool Triad::is_less(const Triad& other)
+{
+    if (a == other.a)
+    {
+        if (b == other.b)
+        {
+            if (c < other.c) {
+                return true;
+            }
+        }
+        else if (b < other.b)
+        {
+            return true;
+        }
+    }
+    else if (a < other.a)
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+}

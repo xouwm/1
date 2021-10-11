@@ -15,6 +15,22 @@ protected:
 	\brief	число c
 	*/
 	int c;
+
+	/**
+	*\brief сеттер a
+	* \param a значение a
+	*/
+	void set_a(const int a);
+	/**
+	*\brief сеттер b
+	* \param b значение b
+	*/
+	void set_b(const int b);
+	/**
+	*\brief сеттер c
+	* \param c значение c
+	*/
+	void set_c(const int c);
 public:
 	/**
 	\brief	конструктор по умолчанию
@@ -27,7 +43,7 @@ public:
 	* \param число b
 	* \param число c
 	*/
-	explicit Triad(int a, int b, int c);
+	explicit Triad(const int a, const int b, const int c);
 
 	/**
 	\brief	конструктор копирования по умолчанию
@@ -38,11 +54,6 @@ public:
 	\brief	конструктор присвоения по умолчанию
 	*/
 	Triad& operator=(const  Triad&) = default;
-
-	friend std::ostream& operator<<(std::ostream& out,Triad& F)
-	{
-		return out << F.get_a() << "|" << F.get_b() << "|" << F.get_c();
-	}
 
 	/**
 	\brief	деструктор по умолчанию
@@ -65,23 +76,11 @@ public:
 	int get_c();
 
 	/**
-	\brief	метод, возвращающий произведение чисел в триаде
+	\brief	методы, сравнивающие числа
 	*/
-	int get_composition();
+	bool are_equal(const Triad& other);
 
-	/**
-	\brief	метод, изменяющий число a
-	*/
-	int set_change_of_a(int changed_a);
+	bool is_greater(const Triad& other);
 
-	/**
-	\brief	метод, изменяющий число b
-	*/
-	int set_change_of_b(int changed_b);
-
-	/**
-	\brief	метод, изменяющий число c
-	*/
-	int set_change_of_c(int changed_c);
-
+	bool is_less(const Triad& other);
 };

@@ -1,90 +1,50 @@
 #include "Date.h"
 #include<iostream>
 
-void Date::set_date(int day, int month, int year)
+void Date::set_day(const int day)
 {
-    if (day > 0 && month > 0 && year >= 0)
+    if (day >= 1 && year <= 31)
     {
-        this->a = day;
-        this->b = month;
-        this->c = year;
+        this->day = day;
+        Triad::c = day;
     }
     else
     {
-        throw std::invalid_argument{ "ѕиво" };
+        throw std::invalid_argument{ "ƒень меньше 1 или больше 31" };
     }
 }
 
-Date::Date(int day, int month, int year)
+void Date::set_month(const int month)
 {
-    set_date(day, month, year);
-}
-
-
-bool Date::checkDay(Date& date) {
-    for (auto i : { 0, 2, 4, 6, 7, 9, 11 }) {
-        if (date.get_month() == i + 1) {
-            if (date.get_day() >= 1 && date.get_day() <= days_in_month[i]) {
-                return true;
-            }
-        }
+    if (month >= 1 && year <= 12)
+    {
+        this->month = month;
+        Triad::b = month;
     }
-
-for (auto i : { 3, 5, 8, 10 }) {
-    if (date.get_month() == i + 1) {
-        if (date.get_day() >= 1 && date.get_day() <= days_in_month[i]) {
-            return true;
-        }
-    }
-}
-if (date.get_month() == 2) {
-    if (isLeapYear(date.get_year())) {
-        if (date.get_day() >= 1 && date.get_day() <= 29) {
-            return true;
-        }
-    }
-    else {
-        if (date.get_day() >= 1 && date.get_day() <= 28) {
-            return true;
-        }
-    }
-}
-return false;
-    }
-bool Date::checkMonth(Date& date)
-{ //‘ункци¤ проверки мес¤ца на валидность
-    if (date.get_month() >= 1 && date.get_month() <= 12) {
-        return true;
-    }
-    return false;
-}
-bool Date::checkYear(Date& date)
-{ //‘ункци¤ проверки года на валидность
-    if (date.get_year() >= 1900 && date.get_year() <= 2040) {
-        return true;
-    }
-    return false;
-}
-
-bool Date::checkDate(Date& date)
-{ //‘ункци¤ проверки даты на валидность
-    if ((checkDay(date) == true) &&
-        (checkMonth(date) == true) &&
-        (checkYear(date) == true)) {
-        return true;
-    }
-    else {
-        return false;
+    else
+    {
+        throw std::invalid_argument{ "ћес¤ц меньше 1 или больше 12" };
     }
 }
 
-
-bool Date::isLeapYear(int year)
-{ //‘ункци¤ проверки ¤вл¤етс¤ ли год високосным (реализуем виртуальный метод абстрактного класса)
-    if (((year % 4 == 0) && (year % 100 != 0)) || (year % 400 == 0)) {
-        return true;
+void Date::set_year(const int year)
+{
+    if (year > 0)
+    {
+        this->year = year;
+        Triad::c = year;
     }
-    return false;
+    else
+    {
+        throw std::invalid_argument{ "√од меньше или равен 0" };
+    }
+}
+
+Date::Date(const int day, const int month, const int year)
+{
+    set_day(day);
+    set_month(month);
+    set_year(year);
 }
 
 int Date::get_day()
@@ -104,78 +64,25 @@ int Date::get_year()
 
 
 
-bool Date::are_equal(Date& other)
+bool Date::are_equal(const Date& other)
 {
-    if (year == other.year)
-    {
-        if (month == other.month)
-        {
-
-            if (day == other.day)
-            {
-                return true;
-            }
-        }
-    }
-    else
-    {
-       return false;
-    }
+    Triad triadThis(year, month, day);
+    Triad triadOther(other.year, other.month, other.day);
+    return triadThis.are_equal(triadOther);
 }
 
-bool Date::is_greater(Date& other)
+bool Date::is_greater(const Date& other)
 {
-    if (year > other.year)
-    {
-        return true;
-    }
-    else if (year == other.year)
-    {
-        if (month > other.month)
-        {
-            return true;
-        }
-        if (month == other.month)
-        {
-            if (day > other.day)
-            {
-                return true;
-            }
-        }
-    }
-    else
-    {
-        return false;
-    }
-
-
+    Triad triadThis(year, month, day);
+    Triad triadOther(other.year, other.month, other.day);
+    return triadThis.is_greater(triadOther);
 }
 
-bool Date::is_less(Date& other)
+bool Date::is_less(const Date& other)
 {
-
-    if (year == other.year)
-    {
-        if (month == other.month)
-        {
-            if (day < other.day) {
-                return true;
-            }
-        }
-        else if (month < other.month)
-        {
-            return true;
-        }
-    }
-    else if (year < other.year)
-    {
-        return true;
-    }
-    else
-    {
-        return false;
-    }
-
+    Triad triadThis(year, month, day);
+    Triad triadOther(other.year, other.month, other.day);
+    return triadThis.is_less(triadOther);
 }
 
 std::ostream& operator<<(std::ostream& out, Date& F)

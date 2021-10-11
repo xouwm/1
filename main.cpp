@@ -4,7 +4,7 @@
 #include "Triad.h"
 using namespace std;
 
-int main() 
+int main()
 {
 	setlocale(LC_ALL, "Russian");
 
@@ -13,12 +13,13 @@ int main()
 	a = 1;
 	b = 2;
 	c = 3;
-	Triad one(a, b, c);
-	cout << "день = " << one.get_a() << endl << "мес¤ц = " << one.get_b() << endl << "год = " << one.get_c() << endl;
+	Triad triad(a, b, c);
+	cout << "a = " << triad.get_a() << endl << "b = " << triad.get_b() << endl << "c = " << triad.get_c() << endl;
 
 
-	Date two(a, b, c);
-	cout << "день = " << two.get_day() << endl << "мес¤ц = " << two.get_month() << endl << "год = " << two.get_year() << endl;
-
-
+	Date dateOne(12, 12, 2012);
+	Date dateTwo(12, 12, 2013);
+	cout << "Первая дата: " << endl << "день = " << dateOne.get_day() << endl << "месяц = " << dateOne.get_month() << endl << "год = " << dateOne.get_year() << endl;
+	cout << "Вторая дата: " << endl << "день = " << dateTwo.get_day() << endl << "месяц = " << dateTwo.get_month() << endl << "год = " << dateTwo.get_year() << endl << endl;;
+	cout << "Первая дата меньше второй: " << dateOne.is_less(dateTwo) << endl;
 }
