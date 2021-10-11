@@ -1,36 +1,150 @@
 #include <iostream>
-#include "Triangle.h"
+#include <windows.h>
+
+
+/**
+* @brief Собственное исключение, пустой класс
+*/
+class OwnException1
+{};
+
+/**
+* @brief Собственное исключение, независимый класс
+*/
+class OwnException2
+{
+    std::string msg;
+public:
+    OwnException2(const std::string& s) : msg(s) {}
+    const char* message() const { return msg.c_str(); }
+};
+
+/**
+* @brief Собственное исключение, класс-наследник от стандартного исключени¤
+*/
+class OwnException3 : public std::exception
+{
+private:
+    std::string m_error;
+
+public:
+    OwnException3(std::string error)
+        : m_error(error)
+    {
+    }
+    const char* what() const noexcept { return m_error.c_str(); }
+};
+
+double GetTrianglePerimetr(double a, double b, double c)
+{
+    return a + b + c;
+}
+
+// Функция без спецификации исключений
+double NoException(double a, double b, double c)
+{
+    if (a < 0)
+        throw std::exception();
+
+    if (b < 0)
+        throw std::exception();
+
+    if (c < 0)
+        throw std::exception();
+
+    return GetTrianglePerimetr(a, b, c);
+}
+
+// Функция со спецификацией throw
+int ThrowException(double a, double b, double c) throw()
+{
+    // Если вызвать throw в этой функции, то, при ошибке, работа программы прекратитс¤, т.к. стоит спецификатор throw()
+
+    if (a < 0)
+        throw("Длина первой стороны треугольника не может быть меньше 0");
+
+    if (b < 0)
+        throw("Длина второй стороны треугольника не может быть меньше 0");
+
+    if (c < 0)
+        throw("Длина третьей стороны треугольника не может быть меньше 0");
+
+    return GetTrianglePerimetr(a, b, c);
+}
+
+// Функция с конкретной спецификацией и подходящим исключением
+int ConcreteException(double a, double b, double c) throw(std::underflow_error)
+{
+    if (a < 0)
+        throw std::underflow_error("Длина первой стороны треугольника не может быть меньше 0");
+
+    if (b < 0)
+        throw std::underflow_error("Длина второй стороны треугольника не может быть меньше 0");
+
+    if (c < 0)
+        throw std::underflow_error("Длина третьей стороны треугольника не может быть меньше 0");
+
+    return GetTrianglePerimetr(a, b, c);
+}
+
+// Функция со своим исключением
+int OwnException(double a, double b, double c) throw(OwnException2, OwnException3)
+{
+    if (a < 0)
+        throw OwnException2("Длина первой стороны треугольника не может быть меньше 0");
+
+    if (b < 0)
+        throw OwnException2("Длина второй стороны треугольника не может быть меньше 0");
+
+    if (c < 0)
+        throw OwnException2("Длина третьей стороны треугольника не может быть меньше 0");
+    
+    return GetTrianglePerimetr(a, b, c);
+}
 
 int main()
 {
-	std::cout << get_perimetr(1, 2, 3) << std::endl;
+    SetConsoleOutputCP(CP_UTF8);
 
-	try 
-	{
-		std::cout << get_perimetr_2(0, 0, 0)<<std::endl;
-		std::cout << get_perimetr_3(0, 0, 0)<<std::endl;
-		std::cout << get_perimetr_4(0, 0, 0)<<std::endl;
-		std::cout << get_perimetr_5(0, 0, 0)<<std::endl;
-		std::cout << get_perimetr_6(0, 0, 0)<<std::endl;
-	}
-	catch (int)
-	{
-		std::cerr << "Error! One side or more is equal to 0 or less than 0! (specifier twrow)";
-	}
-	catch (invalid_argument error)
-	{
-		std::cerr << error.what() << std::endl;
-	}
-	catch (empty_class)
-	{
-		std::cerr << "Error!One side or more is equal to 0 or less than 0! (Empty class)" << std::endl;
-	}
-	catch (independent_class error) 
-	{
-		std::cerr << error.message << std::endl;
-	}
-	catch (successor_class error) 
-	{
-		std::cerr << error.what() << std::endl;
-	}
+    // Функция без спецификации исключений
+    try
+    {
+        std::cout << NoException(15, 10, -1) << std::endl;
+    }
+    catch (std::exception& e)
+    {
+        std::cerr << e.what() << std::endl;
+    }
+
+    // Функция со спецификацией throw
+    std::cout << ThrowException(0, 0, 0) << std::endl;
+
+    // Функция с конкретной спецификацией и подходящим исключением
+    try
+    {
+        std::cout << ConcreteException(15, 10, -1) << std::endl;
+
+    }
+    catch (std::underflow_error& e)
+    {
+        std::cerr << e.what() << std::endl;
+    }
+
+    // Функция со своим исключением
+    try
+    {
+        std::cout << OwnException(15, 10, -1) << std::endl;
+    }
+    catch (OwnException1& e)
+    {
+        std::cerr << "Ошибка от исключения с пустым классом." << std::endl;
+    }
+    catch (OwnException2& e)
+    {
+        std::cerr << e.message() << std::endl;
+    }
+    catch (OwnException3& e)
+    {
+        std::cerr << e.what() << std::endl;
+    }
 }
