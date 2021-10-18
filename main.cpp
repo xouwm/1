@@ -35,13 +35,13 @@ public:
     const char* what() const noexcept { return m_error.c_str(); }
 };
 
-double GetTrianglePerimetr(double a, double b, double c)
+double GetTrianglePerimetr(const double a, const double b, const double c)
 {
     return a + b + c;
 }
 
 // Функция без спецификации исключений
-double NoException(double a, double b, double c)
+double NoException(const double a, const double b, const double c)
 {
     if (a < 0)
         throw std::exception();
@@ -56,7 +56,7 @@ double NoException(double a, double b, double c)
 }
 
 // Функция со спецификацией throw
-int ThrowException(double a, double b, double c) throw()
+int ThrowException(const double a, const double b, const double c) throw()
 {
     // Если вызвать throw в этой функции, то, при ошибке, работа программы прекратитс¤, т.к. стоит спецификатор throw()
 
@@ -73,7 +73,7 @@ int ThrowException(double a, double b, double c) throw()
 }
 
 // Функция с конкретной спецификацией и подходящим исключением
-int ConcreteException(double a, double b, double c) throw(std::underflow_error)
+int ConcreteException(const double a, const double b, const double c) throw(std::underflow_error)
 {
     if (a < 0)
         throw std::underflow_error("Длина первой стороны треугольника не может быть меньше 0");
@@ -88,7 +88,7 @@ int ConcreteException(double a, double b, double c) throw(std::underflow_error)
 }
 
 // Функция со своим исключением
-int OwnException(double a, double b, double c) throw(OwnException2, OwnException3)
+int OwnException(const double a, const double b, const double c) throw(OwnException2, OwnException3)
 {
     if (a < 0)
         throw OwnException2("Длина первой стороны треугольника не может быть меньше 0");
