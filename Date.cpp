@@ -1,14 +1,6 @@
 #include "Date.h"
 #include <iostream>
 
-enum Valid
-{
-    MIN_DAY = 1,
-    MIN_MONTH = 1,
-    MAX_MONTH = 12,
-    MIN_YEAR = 0,
-};
-
 void Date::set_day(const int day)
 {
     if (day >= Valid::MIN_DAY && day <= days_in_month[month])

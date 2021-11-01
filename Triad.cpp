@@ -26,21 +26,7 @@ int Triad::get_c() { return c; }
 
 bool Triad::are_equal(const Triad& other)
 {
-    if (a == other.a)
-    {
-        if (b == other.b)
-        {
-
-            if (c == other.c)
-            {
-                return true;
-            }
-        }
-    }
-    else
-    {
-        return false;
-    }
+    return this->a == other.a && this->b == other.b && this->c == other.c;
 }
 
 bool Triad::is_greater(const Triad& other)

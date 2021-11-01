@@ -1,6 +1,7 @@
 #pragma once
 #include <string>
-#include"Triad.h"
+#include "Triad.h"
+#include "Enums.h"
 
 class Date : public Triad
 {
